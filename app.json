@@ -21,7 +21,7 @@
     }
   ],
   "scripts": {
-    "postdeploy": "yarn sequelize db:migrate"
+    "postdeploy": "pnpm sequelize db:migrate"
   },
   "env": {
     "NODE_ENV": {
