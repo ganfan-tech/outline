@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { s } from "@shared/styles";
 import { Action } from "~/components/Actions";
+import CollectionList from "~/components/Collection/CollectionList";
 import Empty from "~/components/Empty";
 import Heading from "~/components/Heading";
 import InputSearchPage from "~/components/InputSearchPage";
@@ -25,7 +26,7 @@ import useStores from "~/hooks/useStores";
 import NewDocumentMenu from "~/menus/NewDocumentMenu";
 
 function Home() {
-  const { documents, ui } = useStores();
+  const { documents, collections, ui } = useStores();
   const team = useCurrentTeam();
   const user = useCurrentUser();
   const { t } = useTranslation();
@@ -95,10 +96,9 @@ function Home() {
             />
           </Route>
           <Route path="/home">
-            <PaginatedDocumentList
+            <CollectionList
               key="recent"
-              documents={documents.recentlyViewed}
-              fetch={documents.fetchRecentlyViewed}
+              collections={collections.all}
               empty={
                 <Empty>
                   {t(
