@@ -26,43 +26,30 @@ export default function Routes() {
         </DelayedMount>
       }
     >
-      {env.ROOT_SHARE_ID ? (
-        <Switch>
-          <Route exact path="/" component={SharedDocument} />
-          <Route exact path={`/doc/${slug}`} component={SharedDocument} />
-          <Redirect exact from="/s/:shareId" to="/" />
-          <Redirect
-            exact
-            from={`/s/:shareId/doc/${slug}`}
-            to={`/doc/${slug}`}
-          />
-        </Switch>
-      ) : (
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/create" component={Login} />
-          <Route exact path="/logout" component={Logout} />
-          <Route exact path="/desktop-redirect" component={DesktopRedirect} />
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/create" component={Login} />
+        <Route exact path="/logout" component={Logout} />
+        <Route exact path="/desktop-redirect" component={DesktopRedirect} />
 
-          <Redirect exact from="/share/:shareId" to="/s/:shareId" />
-          <Route exact path="/s/:shareId" component={SharedDocument} />
+        <Redirect exact from="/share/:shareId" to="/s/:shareId" />
+        <Route exact path="/s/:shareId" component={SharedDocument} />
 
-          <Redirect
-            exact
-            from={`/share/:shareId/doc/${slug}`}
-            to={`/s/:shareId/doc/${slug}`}
-          />
-          <Route
-            exact
-            path={`/s/:shareId/doc/${slug}`}
-            component={SharedDocument}
-          />
+        <Redirect
+          exact
+          from={`/share/:shareId/doc/${slug}`}
+          to={`/s/:shareId/doc/${slug}`}
+        />
+        <Route
+          exact
+          path={`/s/:shareId/doc/${slug}`}
+          component={SharedDocument}
+        />
 
-          <Authenticated>
-            <AuthenticatedRoutes />
-          </Authenticated>
-        </Switch>
-      )}
+        <Authenticated>
+          <AuthenticatedRoutes />
+        </Authenticated>
+      </Switch>
     </React.Suspense>
   );
 }

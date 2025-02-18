@@ -5,7 +5,7 @@ import Document from "~/models/Document";
 import env from "~/env";
 
 export function homePath(): string {
-  return env.ROOT_SHARE_ID ? "/" : "/home";
+  return "/home";
 }
 
 export function draftsPath(): string {
