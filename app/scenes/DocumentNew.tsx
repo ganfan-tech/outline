@@ -24,10 +24,10 @@ function DocumentNew({ template }: Props) {
   const location = useLocation();
   const query = useQuery();
   const user = useCurrentUser();
-  const match = useRouteMatch<{ id?: string }>();
+  const match = useRouteMatch<{ collectionId?: string }>();
   const { t } = useTranslation();
   const { documents, collections } = useStores();
-  const id = match.params.id || query.get("collectionId");
+  const collectionId = match.params.collectionId || query.get("collectionId");
 
   useEffect(() => {
     async function createDocument() {
@@ -38,8 +38,8 @@ function DocumentNew({ template }: Props) {
       let collection;
 
       try {
-        if (id) {
-          collection = await collections.fetch(id);
+        if (collectionId) {
+          collection = await collections.fetch(collectionId);
         }
         const document = await documents.create(
           {

@@ -17,8 +17,11 @@ import PlaceholderCollections from "./PlaceholderCollections";
 import Relative from "./Relative";
 import SidebarAction from "./SidebarAction";
 import { DragObject } from "./SidebarLink";
+import { useLocation } from "react-router-dom";
 
-function Collections() {
+const CollectionDocTree = () => {
+  const a = useLocation();
+  console.log(a);
   const { documents, collections } = useStores();
   const { t } = useTranslation();
   const orderedCollections = collections.orderedData;
@@ -82,11 +85,11 @@ function Collections() {
       </Header>
     </Flex>
   );
-}
+};
 
 export const StyledError = styled(Error)`
   font-size: 15px;
   padding: 0 8px;
 `;
 
-export default observer(Collections);
+export default observer(CollectionDocTree);

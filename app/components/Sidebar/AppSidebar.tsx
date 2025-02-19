@@ -20,7 +20,7 @@ import TeamLogo from "../TeamLogo";
 import Tooltip from "../Tooltip";
 import Sidebar from "./Sidebar";
 import ArchiveLink from "./components/ArchiveLink";
-import Collections from "./components/Collections";
+import CollectionDocTree from "./components/CollectionDocTree";
 import DragPlaceholder from "./components/DragPlaceholder";
 import HistoryNavigation from "./components/HistoryNavigation";
 import Section from "./components/Section";
@@ -31,6 +31,7 @@ import SidebarLink from "./components/SidebarLink";
 import Starred from "./components/Starred";
 import ToggleButton from "./components/ToggleButton";
 import TrashLink from "./components/TrashLink";
+import AccountMenu from "~/menus/AccountMenu";
 
 function AppSidebar() {
   const { t } = useTranslation();
@@ -63,7 +64,7 @@ function AppSidebar() {
         <DndProvider backend={HTML5Backend} options={html5Options}>
           <DragPlaceholder />
 
-          <OrganizationMenu>
+          <AccountMenu>
             {(props: SidebarButtonProps) => (
               <SidebarButton
                 {...props}
@@ -93,7 +94,7 @@ function AppSidebar() {
                 </Tooltip>
               </SidebarButton>
             )}
-          </OrganizationMenu>
+          </AccountMenu>
           <Overflow>
             <Section>
               <SidebarLink
@@ -108,7 +109,7 @@ function AppSidebar() {
                 label={t("Search")}
                 exact={false}
               />
-              {can.createDocument && (
+              {/* {can.createDocument && (
                 <SidebarLink
                   to={draftsPath()}
                   icon={<DraftsIcon />}
@@ -125,28 +126,28 @@ function AppSidebar() {
                     </Flex>
                   }
                 />
-              )}
+              )} */}
             </Section>
           </Overflow>
           <Scrollable flex shadow>
-            <Section>
+            {/* <Section>
               <Starred />
             </Section>
             <Section>
               <SharedWithMe />
-            </Section>
+            </Section> */}
             <Section>
-              <Collections />
+              <CollectionDocTree />
             </Section>
-            {can.createDocument && (
+            {/* {can.createDocument && (
               <Section auto>
                 <ArchiveLink />
               </Section>
-            )}
-            <Section>
+            )} */}
+            {/* <Section>
               {can.createDocument && <TrashLink />}
               <SidebarAction action={inviteUser} />
-            </Section>
+            </Section> */}
           </Scrollable>
         </DndProvider>
       )}

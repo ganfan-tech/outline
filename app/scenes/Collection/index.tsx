@@ -50,7 +50,7 @@ import ShareButton from "./components/ShareButton";
 const IconPicker = React.lazy(() => import("~/components/IconPicker"));
 
 function CollectionScene() {
-  const params = useParams<{ id?: string }>();
+  const params = useParams<{ collectionId?: string }>();
   const history = useHistory();
   const match = useRouteMatch();
   const location = useLocation();
@@ -61,11 +61,11 @@ function CollectionScene() {
   const currentPath = location.pathname;
   const [, setLastVisitedPath] = useLastVisitedPath();
 
-  const id = params.id || "";
+  const collectionId = params.collectionId || "";
   const collection: Collection | null | undefined =
-    collections.getByUrl(id) || collections.get(id);
+    collections.getByUrl(collectionId) || collections.get(collectionId);
   const can = usePolicy(collection);
-  const { pins, count } = usePinnedDocuments(id, collection?.id);
+  const { pins, count } = usePinnedDocuments(collectionId, collection?.id);
 
   const handleIconChange = React.useCallback(
     async (icon: string | null, color: string | null) => {
@@ -86,7 +86,7 @@ function CollectionScene() {
         history.replace(canonicalUrl, history.location.state);
       }
     }
-  }, [collection, collection?.name, history, id, match.url]);
+  }, [collection, collection?.name, history, collectionId, match.url]);
 
   React.useEffect(() => {
     if (collection) {
@@ -102,7 +102,7 @@ function CollectionScene() {
         try {
           setError(undefined);
           setFetching(true);
-          await collections.fetch(id);
+          await collections.fetch(collectionId);
         } catch (err) {
           setError(err);
         } finally {
@@ -112,7 +112,7 @@ function CollectionScene() {
     }
 
     void fetchData();
-  }, [collections, isFetching, collection, error, id, can]);
+  }, [collections, isFetching, collection, error, collectionId, can]);
 
   useCommandBarActions([editCollection], [ui.activeCollectionId ?? "none"]);
 

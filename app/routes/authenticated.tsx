@@ -71,30 +71,45 @@ function AuthenticatedRoutes() {
             <Redirect exact from="/starred" to={homePath()} />
             <Redirect exact from="/templates" to={settingsPath("templates")} />
             <Redirect exact from="/collections/*" to="/collection/*" />
-            <Route exact path="/collection/:id/new" component={DocumentNew} />
-            <Route exact path="/collection/:id/:tab" component={Collection} />
-            <Route exact path="/collection/:id" component={Collection} />
             <Route
               exact
-              path="/collection/:id/doc/new"
+              path="/collection/:collectionId/new"
               component={DocumentNew}
             />
             <Route
               exact
-              path={`/collection/:id/doc/${slug}/history/:revisionId?`}
+              path="/collection/:collectionId/:tab"
+              component={Collection}
+            />
+            <Route
+              exact
+              path="/collection/:collectionId"
+              component={Collection}
+            />
+            <Route
+              exact
+              path="/collection/:collectionId/doc/new"
+              component={DocumentNew}
+            />
+            <Route
+              exact
+              path={`/collection/:collectionId/doc/${slug}/history/:revisionId?`}
               component={Document}
             />
             <Route
               exact
-              path={`/collection/:id/doc/${slug}/insights`}
+              path={`/collection/:collectionId/doc/${slug}/insights`}
               component={Document}
             />
             <Route
               exact
-              path={`/collection/:id/doc/${slug}/edit`}
+              path={`/collection/:collectionId/doc/${slug}/edit`}
               component={Document}
             />
-            <Route path={`/collection/:id/doc/${slug}`} component={Document} />
+            <Route
+              path={`/collection/:collectionId/doc/${slug}`}
+              component={Document}
+            />
             <Route exact path="/doc/new" component={DocumentNew} />
             <Route exact path={`/d/${slug}`} component={RedirectDocument} />
             <Route

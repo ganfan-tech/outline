@@ -11,7 +11,7 @@ import useStores from "~/hooks/useStores";
 import { archivePath } from "~/utils/routeHelpers";
 import { useDropToArchive } from "../hooks/useDragAndDrop";
 import { ArchivedCollectionLink } from "./ArchivedCollectionLink";
-import { StyledError } from "./Collections";
+import { StyledError } from "./CollectionDocTree";
 import PlaceholderCollections from "./PlaceholderCollections";
 import Relative from "./Relative";
 import SidebarLink from "./SidebarLink";

@@ -214,7 +214,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, Props>(function _Sidebar(
       >
         {children}
 
-        {user && (
+        {/* {user && (
           <AccountMenu>
             {(props: SidebarButtonProps) => (
               <SidebarButton
@@ -236,7 +236,7 @@ const Sidebar = React.forwardRef<HTMLDivElement, Props>(function _Sidebar(
               </SidebarButton>
             )}
           </AccountMenu>
-        )}
+        )} */}
         <ResizeBorder
           onMouseDown={handleMouseDown}
           onDoubleClick={ui.sidebarIsClosed ? undefined : handleReset}
