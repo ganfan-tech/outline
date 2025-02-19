@@ -74,6 +74,27 @@ function AuthenticatedRoutes() {
             <Route exact path="/collection/:id/new" component={DocumentNew} />
             <Route exact path="/collection/:id/:tab" component={Collection} />
             <Route exact path="/collection/:id" component={Collection} />
+            <Route
+              exact
+              path="/collection/:id/doc/new"
+              component={DocumentNew}
+            />
+            <Route
+              exact
+              path={`/collection/:id/doc/${slug}/history/:revisionId?`}
+              component={Document}
+            />
+            <Route
+              exact
+              path={`/collection/:id/doc/${slug}/insights`}
+              component={Document}
+            />
+            <Route
+              exact
+              path={`/collection/:id/doc/${slug}/edit`}
+              component={Document}
+            />
+            <Route path={`/collection/:id/doc/${slug}`} component={Document} />
             <Route exact path="/doc/new" component={DocumentNew} />
             <Route exact path={`/d/${slug}`} component={RedirectDocument} />
             <Route

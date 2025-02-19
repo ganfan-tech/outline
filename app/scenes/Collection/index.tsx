@@ -199,28 +199,26 @@ function CollectionScene() {
           <CollectionDescription collection={collection} />
 
           <Documents>
-            {!collection.isArchived && (
-              <Tabs>
-                <Tab to={collectionPath(collection.path)} exact>
-                  {t("Documents")}
-                </Tab>
-                <Tab to={collectionPath(collection.path, "updated")} exact>
-                  {t("Recently updated")}
-                </Tab>
-                <Tab to={collectionPath(collection.path, "published")} exact>
-                  {t("Recently published")}
-                </Tab>
-                <Tab to={collectionPath(collection.path, "old")} exact>
-                  {t("Least recently updated")}
-                </Tab>
-                <Tab to={collectionPath(collection.path, "alphabetical")} exact>
-                  {t("A–Z")}
-                </Tab>
-              </Tabs>
-            )}
+            <Tabs>
+              <Tab to={collectionPath(collection.path)} exact>
+                {t("Documents")}
+              </Tab>
+              <Tab to={collectionPath(collection.path, "updated")} exact>
+                {t("Recently updated")}
+              </Tab>
+              <Tab to={collectionPath(collection.path, "published")} exact>
+                {t("Recently published")}
+              </Tab>
+              <Tab to={collectionPath(collection.path, "old")} exact>
+                {t("Least recently updated")}
+              </Tab>
+              <Tab to={collectionPath(collection.path, "alphabetical")} exact>
+                {t("A–Z")}
+              </Tab>
+            </Tabs>
             {collection.isEmpty ? (
               <Empty collection={collection} />
-            ) : !collection.isArchived ? (
+            ) : (
               <Switch>
                 <Route path={collectionPath(collection.path, "alphabetical")}>
                   <PaginatedDocumentList
@@ -283,24 +281,6 @@ function CollectionScene() {
                       parentDocumentId: null,
                       sort: collection.sort.field,
                       direction: collection.sort.direction,
-                    }}
-                    showParentDocuments
-                  />
-                </Route>
-              </Switch>
-            ) : (
-              <Switch>
-                <Route path={collectionPath(collection.path)} exact>
-                  <PaginatedDocumentList
-                    documents={documents.archivedInCollection(collection.id)}
-                    fetch={documents.fetchPage}
-                    heading={<Subheading sticky>{t("Documents")}</Subheading>}
-                    options={{
-                      collectionId: collection.id,
-                      parentDocumentId: null,
-                      sort: collection.sort.field,
-                      direction: collection.sort.direction,
-                      statusFilter: [StatusFilter.Archived],
                     }}
                     showParentDocuments
                   />

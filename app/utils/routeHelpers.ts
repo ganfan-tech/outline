@@ -49,7 +49,7 @@ export function updateCollectionPath(
 }
 
 export function documentPath(doc: Document): string {
-  return doc.path;
+  return `/collection/${doc.collectionId}${doc.path}`;
 }
 
 export function documentEditPath(doc: Document): string {
