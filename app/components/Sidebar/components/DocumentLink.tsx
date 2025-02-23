@@ -34,7 +34,7 @@ import SidebarLink from "./SidebarLink";
 
 type Props = {
   node: NavigationNode;
-  collection?: Collection;
+  collection: Collection;
   activeDocument: Document | null | undefined;
   prefetchDocument?: (documentId: string) => Promise<Document | void>;
   isDraft?: boolean;
@@ -233,7 +233,7 @@ function InnerDocumentLink(
                 onDisclosureClick={handleDisclosureClick}
                 onClickIntent={handlePrefetch}
                 to={{
-                  pathname: node.url,
+                  pathname: `/collection/${collection.id}${node.url}`,
                   state: {
                     title: node.title,
                     sidebarContext,

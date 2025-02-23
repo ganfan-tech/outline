@@ -121,7 +121,7 @@ function CollectionLinkChildren({
             activeDocument={documents.active}
             prefetchDocument={prefetchDocument}
             isDraft={node.isDraft}
-            depth={2}
+            depth={0}
             index={index}
           />
         ))}

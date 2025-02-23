@@ -17,12 +17,77 @@ import PlaceholderCollections from "./PlaceholderCollections";
 import Relative from "./Relative";
 import SidebarAction from "./SidebarAction";
 import { DragObject } from "./SidebarLink";
-import { useLocation } from "react-router-dom";
+import {
+  useLocation,
+  useRouteMatch,
+  useParams,
+  matchPath,
+  match,
+} from "react-router-dom";
+import { useEffect, useState } from "react";
+import CollectionLinkChildren from "./CollectionLinkChildren";
 
 const CollectionDocTree = () => {
-  const a = useLocation();
-  console.log(a);
   const { documents, collections } = useStores();
+  const location = useLocation();
+
+  const [currentCollection, setCurrentCollection] = useState<Collection | null>(
+    null
+  );
+
+  useEffect(() => {
+    console.log(1112);
+    let m: match<{ collectionId?: string }> | null = null;
+    // 第一次匹配
+    m = matchPath<{ collectionId?: string }>(location.pathname, {
+      path: "/collection/:collectionId",
+      exact: false,
+      strict: false,
+    });
+    // 第一次没匹配到，匹配第二次
+    if (m === null) {
+      m = matchPath<{ collectionId?: string }>(location.pathname, {
+        path: "/collection/:collectionId/*",
+        exact: false,
+        strict: false,
+      });
+    }
+    if (!m) {
+      setCurrentCollection(null);
+      return;
+    }
+    const collectionId = m.params.collectionId;
+    const cc = collections.all.find(
+      (c) => c.id === collectionId || c.path === `/collection/${collectionId}`
+    );
+    console.log("cccc=", cc);
+
+    if (!cc) {
+      setCurrentCollection(null);
+      return;
+    }
+
+    setCurrentCollection(cc);
+
+    // 找到cc 以后，再去获取其数据，更新到当前组件
+  }, [location, collections.all]);
+
+  useEffect(() => {
+    async function fetchData() {
+      if (currentCollection) {
+        await currentCollection.fetchDocuments();
+      }
+    }
+    void fetchData();
+  }, [currentCollection]);
+
+  console.log("currentCollection", currentCollection);
+
+  const aa = useRouteMatch();
+  const a = useLocation();
+  const aaa = useParams();
+  const params1 = useParams<{ collectionId?: string }>();
+  console.log(a, aa, aaa, params1);
   const { t } = useTranslation();
   const orderedCollections = collections.orderedData;
 
@@ -50,6 +115,19 @@ const CollectionDocTree = () => {
       isDraggingAnyCollection: monitor.getItemType() === "collection",
     }),
   });
+
+  return currentCollection ? (
+    <Flex column>
+      <Relative>
+        <CollectionLinkChildren
+          collection={currentCollection}
+          expanded={true}
+        />
+      </Relative>
+    </Flex>
+  ) : (
+    <div />
+  );
 
   return (
     <Flex column>
