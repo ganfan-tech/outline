@@ -56,7 +56,7 @@ function Home() {
       <ResizingHeightContainer>
         {!ui.languagePromptDismissed && <LanguagePrompt key="language" />}
       </ResizingHeightContainer>
-      <Heading>{t("Home")}</Heading>
+      {/* <Heading>{t("Home")}</Heading> */}
       <PinnedDocuments
         pins={pins}
         canUpdate={can.update}

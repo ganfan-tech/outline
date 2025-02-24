@@ -1,3 +1,4 @@
+import { List } from "antd";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import Collection from "~/models/Collection";
@@ -33,7 +34,26 @@ const CollectionList = React.memo<Props>(function CollectionList({
 }: Props) {
   const { t } = useTranslation();
 
-  console.log(collections.length);
+  return (
+    <List
+      grid={{ gutter: 16, column: 4 }}
+      dataSource={collections}
+      renderItem={(item) => (
+        <List.Item>
+          <CollectionItem
+            key={item.id}
+            collection={item}
+            showPin={!!options?.collectionId}
+            showParentDocuments={showParentDocuments}
+            showCollection={showCollection}
+            showPublished={showPublished}
+            showTemplate={showTemplate}
+            showDraft={showDraft}
+          />
+        </List.Item>
+      )}
+    />
+  );
 
   return (
     <PaginatedList

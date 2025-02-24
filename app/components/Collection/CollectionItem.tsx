@@ -2,6 +2,7 @@ import {
   useFocusEffect,
   useRovingTabIndex,
 } from "@getoutline/react-roving-tabindex";
+import { Card, ConfigProvider } from "antd";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
@@ -11,21 +12,15 @@ import breakpoint from "styled-components-breakpoint";
 import EventBoundary from "@shared/components/EventBoundary";
 import { s } from "@shared/styles";
 import Collection from "~/models/Collection";
-import Badge from "~/components/Badge";
-import DocumentMeta from "~/components/DocumentMeta";
 import Flex from "~/components/Flex";
 import Highlight from "~/components/Highlight";
-import Icon from "~/components/Icon";
 import NudeButton from "~/components/NudeButton";
-import StarButton, { AnimatedStar } from "~/components/Star";
-import Tooltip from "~/components/Tooltip";
+import { AnimatedStar } from "~/components/Star";
 import useBoolean from "~/hooks/useBoolean";
 import useCurrentUser from "~/hooks/useCurrentUser";
-import DocumentMenu from "~/menus/DocumentMenu";
 import { hover } from "~/styles";
-import { documentPath } from "~/utils/routeHelpers";
+import Icon from "../Icon";
 import CollectionLink from "../Sidebar/components/CollectionLink";
-import { Avatar, Card } from "antd";
 
 type Props = {
   collection: Collection;
@@ -39,12 +34,12 @@ type Props = {
   showTemplate?: boolean;
 };
 
-const SEARCH_RESULT_REGEX = /<b\b[^>]*>(.*?)<\/b>/gi;
+// const SEARCH_RESULT_REGEX = /<b\b[^>]*>(.*?)<\/b>/gi;
 
-function replaceResultMarks(tag: string) {
-  // don't use SEARCH_RESULT_REGEX directly here as it causes an infinite loop
-  return tag.replace(new RegExp(SEARCH_RESULT_REGEX.source), "$1");
-}
+// function replaceResultMarks(tag: string) {
+//   // don't use SEARCH_RESULT_REGEX directly here as it causes an infinite loop
+//   return tag.replace(new RegExp(SEARCH_RESULT_REGEX.source), "$1");
+// }
 
 function CollectionItem(props: Props, ref: React.RefObject<HTMLAnchorElement>) {
   const { t } = useTranslation();
@@ -72,10 +67,10 @@ function CollectionItem(props: Props, ref: React.RefObject<HTMLAnchorElement>) {
     context,
     ...rest
   } = props;
-  const queryIsInTitle =
-    !!highlight &&
-    !!document.title.toLowerCase().includes(highlight.toLowerCase());
-  const canStar = !document.isArchived && !document.isTemplate;
+  // const queryIsInTitle =
+  //   !!highlight &&
+  //   !!document.title.toLowerCase().includes(highlight.toLowerCase());
+  // const canStar = !document.isArchived && !document.isTemplate;
 
   const handleDisclosureClick = React.useCallback(
     (ev: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,13 +82,15 @@ function CollectionItem(props: Props, ref: React.RefObject<HTMLAnchorElement>) {
   );
   return (
     <Link to={collection.path}>
-      <Card>
-        <Card.Meta
-          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-          title={collection.name}
-          description={collection.color}
-        />
-      </Card>
+      <ConfigProvider theme={{ token: {} }}>
+        <Card>
+          <Card.Meta
+            avatar={<Icon value={collection.icon} color={collection.color} />}
+            title={collection.name}
+            // description={collection.color}
+          />
+        </Card>
+      </ConfigProvider>
     </Link>
   );
 

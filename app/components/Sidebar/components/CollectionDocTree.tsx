@@ -1,15 +1,21 @@
+import { Divider } from "antd";
 import fractionalIndex from "fractional-index";
 import { observer } from "mobx-react";
 import * as React from "react";
 import { useDrop } from "react-dnd";
 import { useTranslation } from "react-i18next";
+import { useLocation, matchPath, match, Link } from "react-router-dom";
 import styled from "styled-components";
+import { colorPalette } from "@shared/utils/collections";
 import Collection from "~/models/Collection";
 import Flex from "~/components/Flex";
+import Icon, { IconTitleWrapper } from "~/components/Icon";
+import IconPicker from "~/components/IconPicker";
 import Error from "~/components/List/Error";
 import PaginatedList from "~/components/PaginatedList";
 import { createCollection } from "~/actions/definitions/collections";
 import useStores from "~/hooks/useStores";
+import CollectionLinkChildren from "./CollectionLinkChildren";
 import DraggableCollectionLink from "./DraggableCollectionLink";
 import DropCursor from "./DropCursor";
 import Header from "./Header";
@@ -17,26 +23,15 @@ import PlaceholderCollections from "./PlaceholderCollections";
 import Relative from "./Relative";
 import SidebarAction from "./SidebarAction";
 import { DragObject } from "./SidebarLink";
-import {
-  useLocation,
-  useRouteMatch,
-  useParams,
-  matchPath,
-  match,
-} from "react-router-dom";
-import { useEffect, useState } from "react";
-import CollectionLinkChildren from "./CollectionLinkChildren";
 
 const CollectionDocTree = () => {
   const { documents, collections } = useStores();
   const location = useLocation();
 
-  const [currentCollection, setCurrentCollection] = useState<Collection | null>(
-    null
-  );
+  const [currentCollection, setCurrentCollection] =
+    React.useState<Collection | null>(null);
 
-  useEffect(() => {
-    console.log(1112);
+  React.useEffect(() => {
     let m: match<{ collectionId?: string }> | null = null;
     // 第一次匹配
     m = matchPath<{ collectionId?: string }>(location.pathname, {
@@ -60,7 +55,6 @@ const CollectionDocTree = () => {
     const cc = collections.all.find(
       (c) => c.id === collectionId || c.path === `/collection/${collectionId}`
     );
-    console.log("cccc=", cc);
 
     if (!cc) {
       setCurrentCollection(null);
@@ -72,7 +66,7 @@ const CollectionDocTree = () => {
     // 找到cc 以后，再去获取其数据，更新到当前组件
   }, [location, collections.all]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchData() {
       if (currentCollection) {
         await currentCollection.fetchDocuments();
@@ -81,13 +75,6 @@ const CollectionDocTree = () => {
     void fetchData();
   }, [currentCollection]);
 
-  console.log("currentCollection", currentCollection);
-
-  const aa = useRouteMatch();
-  const a = useLocation();
-  const aaa = useParams();
-  const params1 = useParams<{ collectionId?: string }>();
-  console.log(a, aa, aaa, params1);
   const { t } = useTranslation();
   const orderedCollections = collections.orderedData;
 
@@ -116,8 +103,43 @@ const CollectionDocTree = () => {
     }),
   });
 
+  const handleIconChange = React.useCallback(
+    async (icon: string | null, color: string | null) => {
+      await currentCollection?.save({ icon, color });
+    },
+    [currentCollection]
+  );
+
+  const fallbackIcon = currentCollection ? (
+    <Icon
+      value={currentCollection.icon ?? "collection"}
+      color={currentCollection.color || undefined}
+      size={40}
+    />
+  ) : null;
+
   return currentCollection ? (
     <Flex column>
+      <Flex>
+        <IconTitleWrapper>
+          <React.Suspense fallback={fallbackIcon}>
+            <IconPicker
+              icon={currentCollection.icon ?? "collection"}
+              color={currentCollection.color ?? colorPalette[0]}
+              initial={currentCollection.name[0]}
+              popoverPosition="bottom-start"
+              onChange={handleIconChange}
+              borderOnHover
+            />
+          </React.Suspense>
+        </IconTitleWrapper>
+
+        <i>
+          <Link to={currentCollection.path}>{currentCollection.name}</Link>
+        </i>
+      </Flex>
+
+      <Divider />
       <Relative>
         <CollectionLinkChildren
           collection={currentCollection}

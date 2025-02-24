@@ -18,7 +18,7 @@ import {
 import { DocumentValidation } from "@shared/validations";
 import ContentEditable, { RefHandle } from "~/components/ContentEditable";
 import { useDocumentContext } from "~/components/DocumentContext";
-import Icon, { IconTitleWrapper } from "~/components/Icon";
+// import Icon, { IconTitleWrapper } from "~/components/Icon";
 import { PopoverButton } from "~/components/IconPicker/components/PopoverButton";
 import useBoolean from "~/hooks/useBoolean";
 import usePolicy from "~/hooks/usePolicy";
@@ -52,7 +52,7 @@ type Props = {
 };
 
 const lineHeight = "1.25";
-const fontSize = "2.25em";
+const fontSize = "1.25em";
 
 const DocumentTitle = React.forwardRef(function _DocumentTitle(
   {
@@ -73,15 +73,15 @@ const DocumentTitle = React.forwardRef(function _DocumentTitle(
   const ref = React.useRef<RefHandle>(null);
   const [iconPickerIsOpen, handleOpen, setIconPickerClosed] = useBoolean();
   const { editor } = useDocumentContext();
-  const can = usePolicy(documentId);
+  // const can = usePolicy(documentId);
 
   const handleClick = React.useCallback(() => {
     ref.current?.focus();
   }, [ref]);
 
-  const restoreFocus = React.useCallback(() => {
-    ref.current?.focusAtEnd();
-  }, [ref]);
+  // const restoreFocus = React.useCallback(() => {
+  //   ref.current?.focusAtEnd();
+  // }, [ref]);
 
   const handleBlur = React.useCallback(
     (ev: React.FocusEvent<HTMLSpanElement>) => {
@@ -215,25 +215,25 @@ const DocumentTitle = React.forwardRef(function _DocumentTitle(
     [editor]
   );
 
-  const handleClose = React.useCallback(() => {
-    setIconPickerClosed();
-    restoreFocus();
-  }, [setIconPickerClosed, restoreFocus]);
+  // const handleClose = React.useCallback(() => {
+  //   setIconPickerClosed();
+  //   restoreFocus();
+  // }, [setIconPickerClosed, restoreFocus]);
 
-  const handleIconChange = React.useCallback(
-    (chosenIcon: string | null, iconColor: string | null) => {
-      if (icon !== chosenIcon || color !== iconColor) {
-        onChangeIcon?.(chosenIcon, iconColor);
-      }
-    },
-    [icon, color, onChangeIcon]
-  );
+  // const handleIconChange = React.useCallback(
+  //   (chosenIcon: string | null, iconColor: string | null) => {
+  //     if (icon !== chosenIcon || color !== iconColor) {
+  //       onChangeIcon?.(chosenIcon, iconColor);
+  //     }
+  //   },
+  //   [icon, color, onChangeIcon]
+  // );
 
-  const dir = ref.current?.getComputedDirection();
+  // const dir = ref.current?.getComputedDirection();
 
-  const fallbackIcon = icon ? (
-    <Icon value={icon} color={color} size={40} />
-  ) : null;
+  // const fallbackIcon = icon ? (
+  //   <Icon value={icon} color={color} size={40} />
+  // ) : null;
 
   return (
     <Title
@@ -252,7 +252,7 @@ const DocumentTitle = React.forwardRef(function _DocumentTitle(
       dir="auto"
       ref={mergeRefs([ref, externalRef])}
     >
-      {can.update && !readOnly ? (
+      {/* {can.update && !readOnly ? (
         <IconTitleWrapper dir={dir}>
           <React.Suspense fallback={fallbackIcon}>
             <StyledIconPicker
@@ -270,7 +270,7 @@ const DocumentTitle = React.forwardRef(function _DocumentTitle(
         </IconTitleWrapper>
       ) : icon ? (
         <IconTitleWrapper dir={dir}>{fallbackIcon}</IconTitleWrapper>
-      ) : null}
+      ) : null} */}
     </Title>
   );
 });

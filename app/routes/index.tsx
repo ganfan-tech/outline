@@ -4,7 +4,6 @@ import DesktopRedirect from "~/scenes/DesktopRedirect";
 import DelayedMount from "~/components/DelayedMount";
 import FullscreenLoading from "~/components/FullscreenLoading";
 import Route from "~/components/ProfiledRoute";
-import env from "~/env";
 import useQueryNotices from "~/hooks/useQueryNotices";
 import lazyWithRetry from "~/utils/lazyWithRetry";
 import { matchDocumentSlug as slug } from "~/utils/routeHelpers";

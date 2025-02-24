@@ -13,24 +13,19 @@ import {
 import styled from "styled-components";
 import breakpoint from "styled-components-breakpoint";
 import { s } from "@shared/styles";
-import { StatusFilter } from "@shared/types";
 import { colorPalette } from "@shared/utils/collections";
 import Collection from "~/models/Collection";
 import Search from "~/scenes/Search";
 import { Action } from "~/components/Actions";
 import CenteredContent from "~/components/CenteredContent";
 import { CollectionBreadcrumb } from "~/components/CollectionBreadcrumb";
-import CollectionDescription from "~/components/CollectionDescription";
 import Heading from "~/components/Heading";
 import Icon, { IconTitleWrapper } from "~/components/Icon";
-import CollectionIcon from "~/components/Icons/CollectionIcon";
 import InputSearchPage from "~/components/InputSearchPage";
 import PlaceholderList from "~/components/List/Placeholder";
 import PaginatedDocumentList from "~/components/PaginatedDocumentList";
-import PinnedDocuments from "~/components/PinnedDocuments";
 import PlaceholderText from "~/components/PlaceholderText";
 import Scene from "~/components/Scene";
-import Subheading from "~/components/Subheading";
 import Tab from "~/components/Tab";
 import Tabs from "~/components/Tabs";
 import { editCollection } from "~/actions/definitions/collections";
@@ -147,12 +142,12 @@ function CollectionScene() {
           />
         )
       }
-      title={
-        <>
-          <CollectionIcon collection={collection} expanded />
-          &nbsp;{collection.name}
-        </>
-      }
+      // title={
+      //   <>
+      //     <CollectionIcon collection={collection} expanded />
+      //     &nbsp;{collection.name}
+      //   </>
+      // }
       actions={
         <>
           <MembershipPreview collection={collection} />
@@ -170,7 +165,7 @@ function CollectionScene() {
       >
         <CenteredContent withStickyHeader>
           <Notices collection={collection} />
-          <CollectionHeading>
+          {/* <CollectionHeading>
             <IconTitleWrapper>
               {can.update ? (
                 <React.Suspense fallback={fallbackIcon}>
@@ -189,14 +184,14 @@ function CollectionScene() {
               )}
             </IconTitleWrapper>
             {collection.name}
-          </CollectionHeading>
+          </CollectionHeading> */}
 
-          <PinnedDocuments
+          {/* <PinnedDocuments
             pins={pins}
             canUpdate={can.update}
             placeholderCount={count}
-          />
-          <CollectionDescription collection={collection} />
+          /> */}
+          {/* <CollectionDescription collection={collection} /> */}
 
           <Documents>
             <Tabs>

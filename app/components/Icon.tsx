@@ -108,16 +108,13 @@ const SVGIcon = observer(
 export const IconTitleWrapper = styled(Flex)<{ dir?: string }>`
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 3px;
-  height: 40px;
-  width: 40px;
+  // position: absolute;
+  // top: 3px;
+  // height: 40px;
+  // width: 40px;
 
   // Always move above TOC
   z-index: 1;
-
-  ${(props: { dir?: string }) =>
-    props.dir === "rtl" ? "right: -44px" : "left: -44px"};
 `;
 
 export default Icon;
