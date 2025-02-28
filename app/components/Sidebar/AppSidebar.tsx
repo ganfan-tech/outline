@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Flex from "~/components/Flex";
 import Scrollable from "~/components/Scrollable";
 import Text from "~/components/Text";
+import { createCollection } from "~/actions/definitions/collections";
 import { inviteUser } from "~/actions/definitions/users";
 import useCurrentTeam from "~/hooks/useCurrentTeam";
 import useCurrentUser from "~/hooks/useCurrentUser";
@@ -109,6 +110,8 @@ function AppSidebar() {
                 label={t("Search")}
                 exact={false}
               />
+              <SidebarAction action={createCollection} depth={0} />
+
               {/* {can.createDocument && (
                 <SidebarLink
                   to={draftsPath()}
