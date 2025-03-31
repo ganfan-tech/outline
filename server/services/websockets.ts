@@ -217,14 +217,16 @@ async function authenticated(io: IO.Server, socket: SocketWithAuth) {
  * duration of the session.
  */
 async function authenticate(socket: SocketWithAuth) {
-  const cookies = socket.request.headers.cookie
-    ? cookie.parse(socket.request.headers.cookie)
-    : {};
-  const { accessToken } = cookies;
+  // const cookies = socket.request.headers.cookie
+  //   ? cookie.parse(socket.request.headers.cookie)
+  //   : {};
+  // const { accessToken } = cookies;
 
-  if (!accessToken) {
-    throw AuthenticationError("No access token");
-  }
+  // if (!accessToken) {
+  //   throw AuthenticationError("No access token");
+  // }
+
+  const accessToken = socket.handshake.auth.token;
 
   const user = await getUserForJWT(accessToken);
   socket.client.user = user;

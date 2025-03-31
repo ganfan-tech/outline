@@ -60,16 +60,14 @@ async function start(_id: number, disconnect: () => void) {
   PluginManager.loadPlugins();
 
   // Find if SSL certs are available
-  const ssl = getSSLOptions();
-  const useHTTPS = !!ssl.key && !!ssl.cert;
+  // const ssl = getSSLOptions();
+  // const useHTTPS = !!ssl.key && !!ssl.cert;
 
   // If a --port flag is passed then it takes priority over the env variable
   const normalizedPort = getArg("port", "p") || env.PORT;
   const app = new Koa();
   const server = stoppable(
-    useHTTPS
-      ? https.createServer(ssl, app.callback())
-      : http.createServer(app.callback()),
+    http.createServer(app.callback()),
     ShutdownHelper.connectionGraceTimeout
   );
   const router = new Router();
@@ -153,9 +151,7 @@ async function start(_id: number, disconnect: () => void) {
 
     Logger.info(
       "lifecycle",
-      `Listening on ${useHTTPS ? "https" : "http"}://localhost:${port} / ${
-        env.URL
-      }`
+      `Listening on http://localhost:${port} / ${env.URL}`
     );
   });
 
