@@ -1,0 +1,39 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/build/server/index.js",
+      "args": [
+        "--inspect=0.0.0.0",
+        "--services=cron,collaboration,websockets,admin,web,worker"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "sourceMaps": true,
+      "preLaunchTask": "npm: build:server - backend",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+    },
+    {
+      "name": "Attach by Process ID",
+      "processId": "${command:PickProcess}",
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    }
+  ]
+}

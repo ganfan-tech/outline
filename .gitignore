@@ -5,7 +5,6 @@ node_modules/*
 .env.local
 .env.production
 .log
-.vscode/*
 npm-debug.log
 stats.json
 .DS_Store
