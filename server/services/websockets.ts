@@ -1,10 +1,8 @@
 import http, { IncomingMessage } from "http";
 import { Duplex } from "stream";
-import cookie from "cookie";
 import Koa from "koa";
 import IO from "socket.io";
 import { createAdapter } from "socket.io-redis";
-import { AuthenticationError } from "@server/errors";
 import Logger from "@server/logging/Logger";
 import Metrics from "@server/logging/Metrics";
 import * as Tracing from "@server/logging/tracer";
